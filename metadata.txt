@@ -16,4 +16,4 @@ icon=icon.png
 experimental=False
 deprecated=False
 changelog=
-    3.0.5 - Move repo.
+    3.1.0 - Move repo.
