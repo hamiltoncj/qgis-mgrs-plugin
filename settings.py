@@ -51,9 +51,9 @@ class Settings():
         self.mgrsPrecision =  int(qset.value('/MGRS/Precision', 5))
         self.mgrsPrefix = qset.value('/MGRS/Prefix', '')
         self.mgrsSuffix = qset.value('/MGRS/Suffix', '')
-        self.showLocation = int(qset.value('/MGRS/ShowLocation', Qt.Unchecked))
-        self.persistentMarker = int(qset.value('/MGRS/PersistentMarker', Qt.Checked))
-        self.addSpaces = int(qset.value('/MGRS/AddSpaces', Qt.Unchecked))
+        self.showLocation = int(qset.value('/MGRS/ShowLocation', Qt.CheckState.Unchecked))
+        self.persistentMarker = int(qset.value('/MGRS/PersistentMarker', Qt.CheckState.Checked))
+        self.addSpaces = int(qset.value('/MGRS/AddSpaces', Qt.CheckState.Unchecked))
         self.lineColor = QColor(qset.value('/MGRS/LineColor', '#000000'))
         self.fontColor = QColor(qset.value('/MGRS/FontColor', '#000000'))
 
@@ -66,7 +66,7 @@ class SettingsWidget(QDialog, FORM_CLASS):
         super(SettingsWidget, self).__init__(iface.mainWindow())
         self.setupUi(self)
 
-        self.buttonBox.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.restoreDefaults)
+        self.buttonBox.button(QDialogButtonBox.StandardButton.RestoreDefaults).clicked.connect(self.restoreDefaults)
 
         settings.readSettings()
 
@@ -75,9 +75,9 @@ class SettingsWidget(QDialog, FORM_CLASS):
         self.mgrsPrecisionSpinBox.setValue(5)
         self.prefixLineEdit.setText('')
         self.suffixLineEdit.setText('')
-        self.markerCheckBox.setCheckState(Qt.Unchecked)
-        self.persistentMarkerCheckBox.setCheckState(Qt.Checked)
-        self.addSpacesCheckBox.setCheckState(Qt.Unchecked)
+        self.markerCheckBox.setCheckState(Qt.CheckState.Unchecked)
+        self.persistentMarkerCheckBox.setCheckState(Qt.CheckState.Checked)
+        self.addSpacesCheckBox.setCheckState(Qt.CheckState.Unchecked)
         color = QColor('#000000')
         self.lineColorButton.setColor(color)
         self.fontColorButton.setColor(color)

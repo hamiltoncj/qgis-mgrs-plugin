@@ -1,8 +1,9 @@
 [general]
 name=MGRS Tools
 qgisMinimumVersion=3.4
+qgisMaximumVersion=4.99
 description=Tools to capture and zoom to MGRS coordinates, create MGRS geometries, and create a grid zone designator layer.
-version=3.1.1
+version=3.1.2
 author=Calvin Hamilton
 email=adenaculture@gmail.com
 about=
@@ -16,5 +17,6 @@ icon=icon.png
 experimental=False
 deprecated=False
 changelog=
+    3.1.2 - Qt5/Qt6 compatibility
     3.1.1 - Update metadata
     3.1.0 - Move repo.

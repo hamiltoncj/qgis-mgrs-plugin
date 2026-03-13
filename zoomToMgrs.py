@@ -32,8 +32,8 @@ class ZoomToMgrs(QDockWidget, FORM_CLASS):
         super(ZoomToMgrs, self).__init__(parent)
         self.setupUi(self)
         self.canvas = iface.mapCanvas()
-        self.crossRb = QgsRubberBand(self.canvas, QgsWkbTypes.LineGeometry)
-        self.crossRb.setColor(Qt.red)
+        self.crossRb = QgsRubberBand(self.canvas, QgsWkbTypes.GeometryType.LineGeometry)
+        self.crossRb.setColor(Qt.GlobalColor.red)
         self.marker = None
         self.zoomToolButton.setIcon(QIcon(':/images/themes/default/mActionZoomIn.svg'))
         self.clearToolButton.setIcon(QIcon(':/images/themes/default/mIconClearText.svg'))
@@ -58,12 +58,12 @@ class ZoomToMgrs(QDockWidget, FORM_CLASS):
                 self.marker.setCenter(pt)
                 self.marker.setIconSize(18)
                 self.marker.setPenWidth(2)
-                self.marker.setIconType(QgsVertexMarker.ICON_CROSS)
+                self.marker.setIconType(QgsVertexMarker.IconType.ICON_CROSS)
             elif self.marker is not None:
                 self.removeMarker()
         except Exception:
             # traceback.print_exc()
-            self.iface.messageBar().pushMessage("", "Invalid MGRS Coordinate", level=Qgis.Warning, duration=2)
+            self.iface.messageBar().pushMessage("", "Invalid MGRS Coordinate", level=Qgis.MessageLevel.Warning, duration=2)
             return
 
     def removeMarker(self):
@@ -97,7 +97,7 @@ class ZoomToMgrs(QDockWidget, FORM_CLASS):
         horizLine = QgsGeometry.fromPolyline([leftPt, rightPt])
         vertLine = QgsGeometry.fromPolyline([topPt, bottomPt])
 
-        self.crossRb.reset(QgsWkbTypes.LineGeometry)
+        self.crossRb.reset(QgsWkbTypes.GeometryType.LineGeometry)
         self.crossRb.addGeometry(horizLine, None)
         self.crossRb.addGeometry(vertLine, None)
 

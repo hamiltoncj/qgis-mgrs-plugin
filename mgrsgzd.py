@@ -66,7 +66,7 @@ class MgrsGzdAlgorithm(QgsProcessingAlgorithm):
 
         (sink, dest_id) = self.parameterAsSink(
             parameters, self.PrmOutput,
-            context, f, QgsWkbTypes.Polygon, epsg4326)
+            context, f, QgsWkbTypes.Type.Polygon, epsg4326)
         if polar:
             self.exportPolygon(sink, -180, -90, 180, 10, 'A')
             self.exportPolygon(sink, 0, -90, 180, 10, 'B')
@@ -134,7 +134,7 @@ class MgrsGzdAlgorithm(QgsProcessingAlgorithm):
         file = os.path.dirname(__file__) + '/index.html'
         if not os.path.exists(file):
             return ''
-        return QUrl.fromLocalFile(file).toString(QUrl.FullyEncoded)
+        return QUrl.fromLocalFile(file).toString(QUrl.ComponentFormattingOption.FullyEncoded)
 
     def createInstance(self):
         return MgrsGzdAlgorithm()
@@ -155,7 +155,7 @@ class StylePostProcessor(QgsProcessingLayerPostProcessorInterface):
         if not isinstance(layer, QgsVectorLayer):
             return
         sym = layer.renderer().symbol().symbolLayer(0)
-        sym.setBrushStyle(Qt.NoBrush)
+        sym.setBrushStyle(Qt.BrushStyle.NoBrush)
         sym.setStrokeColor(self.line_color)
         label = QgsPalLayerSettings()
         label.fieldName = 'GZD'

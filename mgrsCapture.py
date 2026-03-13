@@ -56,7 +56,7 @@ class MGRSCapture:
         self.iface.addPluginToMenu('MGRS', self.zoomToAction)
 
         self.zoomToDialog = ZoomToMgrs(self.iface, self.iface.mainWindow())
-        self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.zoomToDialog)
+        self.iface.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.zoomToDialog)
         self.zoomToDialog.hide()
 
         # Add Interface for MGRS geometry gnerator

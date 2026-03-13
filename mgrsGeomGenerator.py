@@ -42,7 +42,7 @@ class MgrsGeomGenerator(QDialog, FORM_CLASS):
             valuestr = str(self.valuesTextEdit.toPlainText()).strip()
             values = re.split(r'[\s,;:]+', valuestr)
             if len(values) == 0:
-                self.iface.messageBar().pushMessage("", "Enter MGRS coordinates", level=Qgis.Warning, duration=4)
+                self.iface.messageBar().pushMessage("", "Enter MGRS coordinates", level=Qgis.MessageLevel.Warning, duration=4)
                 return
             for mg in values:
                 lat, lon = mgrs.toWgs(mg)
@@ -50,7 +50,7 @@ class MgrsGeomGenerator(QDialog, FORM_CLASS):
                 pts.append(pt)
                 mgs.append(mg)
         except Exception:
-            self.iface.messageBar().pushMessage("", "One or more entered mgrs coordinates were invalid", level=Qgis.Warning, duration=4)
+            self.iface.messageBar().pushMessage("", "One or more entered mgrs coordinates were invalid", level=Qgis.MessageLevel.Warning, duration=4)
             s = traceback.format_exc()
             print(s)
             return
@@ -70,7 +70,7 @@ class MgrsGeomGenerator(QDialog, FORM_CLASS):
                 dp.addFeatures([f])
         elif mode == 1:  # Line
             if len(pts) < 2:
-                self.iface.messageBar().pushMessage("", "There must be 2 or more coodinates for a line", level=Qgis.Warning, duration=4)
+                self.iface.messageBar().pushMessage("", "There must be 2 or more coodinates for a line", level=Qgis.MessageLevel.Warning, duration=4)
                 return
             # Calculate the line distance in meters
             pt1 = pts[0]
@@ -90,7 +90,7 @@ class MgrsGeomGenerator(QDialog, FORM_CLASS):
             dp.addFeatures([f])
         elif mode == 2:  # Polygon
             if len(pts) < 2:
-                self.iface.messageBar().pushMessage("", "There must be 2 or more coodinates for a polygon", level=Qgis.Warning, duration=4)
+                self.iface.messageBar().pushMessage("", "There must be 2 or more coodinates for a polygon", level=Qgis.MessageLevel.Warning, duration=4)
                 return
             # Check to see if the polygon is closed. If it isn't close it.
             if mgs[0] != mgs[len(mgs)-1]:
@@ -116,7 +116,7 @@ class MgrsGeomGenerator(QDialog, FORM_CLASS):
             dp.addFeatures([f])
         else:  # Minimum bounding box
             if len(pts) < 2:
-                self.iface.messageBar().pushMessage("", "There must be 2 or more coodinates for a minimum bounding box", level=Qgis.Warning, duration=4)
+                self.iface.messageBar().pushMessage("", "There must be 2 or more coodinates for a minimum bounding box", level=Qgis.MessageLevel.Warning, duration=4)
                 return
             layer = QgsVectorLayer("Polygon?crs={}".format(epsg4326.authid()), "MGRS Bounding Box", "memory")
             dp = layer.dataProvider()

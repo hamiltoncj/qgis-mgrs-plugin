@@ -33,8 +33,8 @@ class CopyMgrsTool(QgsMapToolEmitPoint):
 
     def activate(self):
         '''When activated set the cursor to a crosshair.'''
-        self.canvas.setCursor(Qt.CrossCursor)
-        self.snapcolor = QgsSettings().value( "/qgis/digitizing/snap_color" , QColor( Qt.magenta ) )
+        self.canvas.setCursor(Qt.CursorShape.CrossCursor)
+        self.snapcolor = QgsSettings().value( "/qgis/digitizing/snap_color" , QColor( Qt.GlobalColor.magenta ) )
 
     def deactivate(self):
         self.removeMarker()
@@ -82,7 +82,7 @@ class CopyMgrsTool(QgsMapToolEmitPoint):
                 self.vertex.setIconSize(12)
                 self.vertex.setPenWidth(2)
                 self.vertex.setColor(self.snapcolor)
-                self.vertex.setIconType(QgsVertexMarker.ICON_BOX)
+                self.vertex.setIconType(QgsVertexMarker.IconType.ICON_BOX)
             self.vertex.setCenter(match.point())
             return (match.point()) # Returns QgsPointXY
         else:
@@ -99,7 +99,7 @@ class CopyMgrsTool(QgsMapToolEmitPoint):
                 self.marker = QgsVertexMarker(self.canvas)
                 self.marker.setIconSize(18)
                 self.marker.setPenWidth(2)
-                self.marker.setIconType(QgsVertexMarker.ICON_CROSS)
+                self.marker.setIconType(QgsVertexMarker.IconType.ICON_CROSS)
             self.marker.setCenter(pt)
         else:
             self.removeMarker()
@@ -109,9 +109,9 @@ class CopyMgrsTool(QgsMapToolEmitPoint):
             if msg is not None:
                 clipboard = QApplication.clipboard()
                 clipboard.setText(msg)
-                self.iface.messageBar().pushMessage("", "MGRS coordinate {} copied to the clipboard".format(msg), level=Qgis.Info, duration=4)
+                self.iface.messageBar().pushMessage("", "MGRS coordinate {} copied to the clipboard".format(msg), level=Qgis.MessageLevel.Info, duration=4)
         except Exception as e:
-            self.iface.messageBar().pushMessage("", "Invalid coordinate: {}".format(e), level=Qgis.Warning, duration=4)
+            self.iface.messageBar().pushMessage("", "Invalid coordinate: {}".format(e), level=Qgis.MessageLevel.Warning, duration=4)
 
     def removeMarker(self):
         if self.marker is not None:
